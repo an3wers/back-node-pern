@@ -1,6 +1,7 @@
 import { Router } from "express";
 import productController from "../controllers/product.controller.js";
 import ApiError from "../error/apiError.js";
+import ckeckRoleMiddleware from "../middleware/ckeckRoleMiddleware.js";
 
 const router = Router();
 
@@ -20,7 +21,7 @@ router.get("/", async (req, res, next) => {
   }
 });
 
-router.post("/", async (req, res, next) => {
+router.post("/", ckeckRoleMiddleware('ADMIN'), async (req, res, next) => {
   try {
     const { name, price, brandId, typeId, description } = req.body;
     const { img } = req.files;

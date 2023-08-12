@@ -2,8 +2,8 @@ import jwt from "jsonwebtoken";
 import dotenv from "dotenv";
 dotenv.config();
 
-export default function( role ) {
-  return function(req, res, next) {
+function checkRoleHandler(role) {
+  return function (req, res, next) {
     if (req.method === "OPTIONS") {
       next();
     }
@@ -13,10 +13,10 @@ export default function( role ) {
       if (!token) {
         return res.status(401).json({ message: "Не авторизован" });
       }
-  
+
       const decoded = jwt.verify(token, process.env.SECRET_KEY);
-      
-      if(decoded.role !== role) {
+
+      if (decoded.role !== role) {
         res.status(403).json({ message: "Нет доступа" });
       }
 
@@ -26,7 +26,7 @@ export default function( role ) {
     } catch (error) {
       res.status(401).json({ message: "Не авторизован" });
     }
-
-  }
-
+  };
 }
+
+export default checkRoleHandler;

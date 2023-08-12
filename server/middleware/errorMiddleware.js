@@ -1,8 +1,12 @@
 import ApiError from "../error/apiError.js";
 
-export default function (err, req, res) {
+function errorHandler (err, req, res, next) {
   if (err instanceof ApiError) {
-    return res.status(err.status).json({ message: err.message });
+    res.status(err.status).json({ message: err.message });
+    return
   }
-  return res.status(500).json({ message: "Упс, ошибочка!" });
+  res.status(500).json({ message: "Упс, ошибочка!" });
+  return
 }
+
+export default errorHandler

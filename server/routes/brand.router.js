@@ -1,6 +1,7 @@
 import { Router } from "express";
 import brandController from "../controllers/brand.controller.js";
 import ApiError from "../error/apiError.js";
+import ckeckRoleMiddleware from "../middleware/ckeckRoleMiddleware.js";
 
 const router = Router();
 
@@ -9,7 +10,7 @@ router.get("/", async (req, res) => {
   res.json(result)
 });
 
-router.post("/", async (req, res, next) => {
+router.post("/", ckeckRoleMiddleware("ADMIN"), async (req, res, next) => {
   const data = req.body;
   if ("name" in data) {
     const result = await brandController.create(data);
@@ -20,7 +21,7 @@ router.post("/", async (req, res, next) => {
   }
 });
 
-router.put('/:id', async (req, res, next) => {
+router.put('/:id', ckeckRoleMiddleware("ADMIN"), async (req, res, next) => {
   try {
     const id = req.params.id
     const data = req.body
@@ -36,7 +37,7 @@ router.put('/:id', async (req, res, next) => {
   }
 })
 
-router.delete('/:id', async (req, res, next) => {
+router.delete('/:id', ckeckRoleMiddleware("ADMIN"), async (req, res, next) => {
   try {
     const id = req.params.id
     const result = await brandController.removeOne(id)

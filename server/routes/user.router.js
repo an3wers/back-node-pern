@@ -11,11 +11,11 @@ router.post("/register", async (req, res, next) => {
     if (!email || !password) {
       throw new Error("Некорректные данные");
     }
-
     const result = await userController.register({ email, password, role });
-    res.send(result);
+    res.status(201).json(result); // if success -> result - token 
   } catch (error) {
-    return next(ApiError.badRequest(error.message));
+    next(ApiError.badRequest(error.message));
+    return
   }
 });
 
@@ -36,7 +36,7 @@ router.get("/auth", authMiddleware, async (req, res, next) => {
     role: req.user.role,
   });
   if (token) {
-    res.status(200).json({ data: user, message: "" });
+    res.status(200).json({ data: req.user, message: "" });
   } else {
     return next(ApiError.badRequest("Пользователя не существует"));
   }

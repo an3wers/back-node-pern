@@ -5,7 +5,7 @@ import sequelize from "./db.js";
 import * as models from "./db_models/model.js";
 import cors from "cors";
 import router from "./routes/index.js";
-import errorMiddleware from "./middleware/errorMiddleware.js";
+import errorHandler from "./middleware/errorMiddleware.js";
 import fileUpload from "express-fileupload";
 import path from 'path'
 
@@ -23,7 +23,7 @@ app.use(fileUpload({}));
 // });
 
 app.use("/api", router);
-app.use(errorMiddleware);
+app.use(errorHandler);
 
 const start = async () => {
   try {

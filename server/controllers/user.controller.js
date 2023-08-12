@@ -14,7 +14,7 @@ const generateJwt = (id, email, role) => {
 class UserController {
   async register(data) {
     const candidate = await User.findOne({ where: { email: data.email } });
-
+    
     if (candidate) {
       throw new Error("Пользователь уже существует");
     }
@@ -39,6 +39,7 @@ class UserController {
     }
 
     const comparePassword = bcrypt.compareSync(data.password, user.password);
+    
     if (!comparePassword) {
       throw new Error("Введены некорректные данные");
     }
@@ -52,9 +53,10 @@ class UserController {
     const token = generateJwt(id, email, role);
     return { token };
   }
-  
-  async logout() {}
-  
+
+
+  async logout() {} // Нужен ли запрос при авторизации по JWT
+
   async remove() {}
 }
 

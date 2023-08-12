@@ -1,11 +1,11 @@
 import { v4 as uuidv4 } from "uuid";
 import path from "path";
 import { Product, ProductInfo } from "../db_models/model.js";
-import { where } from "sequelize";
 
 const __dirname = path.resolve();
 
 class ProductController {
+  
   async create(data) {
     const { name, price, brandId, typeId, description, img } = data;
     const fileName = uuidv4() + ".jpg";
@@ -21,7 +21,6 @@ class ProductController {
     });
 
     if (description) {
-      // description is array
       description = JSON.parse(description);
       description.forEach((el) => {
         ProductInfo.create({
@@ -34,6 +33,7 @@ class ProductController {
 
     return product;
   }
+  
   async getAll(data) {
     let { brandId, typeId, limit, page } = data;
     let products = [];

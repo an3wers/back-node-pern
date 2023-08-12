@@ -10,7 +10,7 @@ router.get("/", async (req, res) => {
   res.json(result)
 });
 
-router.post("/", ckeckRoleMiddleware('admin'), async (req, res, next) => {
+router.post("/", ckeckRoleMiddleware('ADMIN'), async (req, res, next) => {
   const data = req.body;
   if ("name" in data) {
     const result = await typeController.create(data);
