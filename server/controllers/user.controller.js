@@ -52,6 +52,10 @@ class UserController {
     const token = generateJwt(id, email, role);
     return { token };
   }
+  
+  async logout() {}
+  
+  async remove() {}
 }
 
 export default new UserController();

@@ -7,8 +7,8 @@ import brandRouter from "./brand.router.js";
 const router = Router();
 
 router.use("/user", userRouter);
-router.use("/type", typeRouter);
-router.use("/brand", brandRouter);
-router.use("/product", productRouter);
+router.use("/types", typeRouter);
+router.use("/brands", brandRouter);
+router.use("/products", productRouter);
 
 export default router;

@@ -9,6 +9,7 @@ router.get("/", async (req, res) => {
   const result = await typeController.getAll()
   res.json(result)
 });
+
 router.post("/", ckeckRoleMiddleware('admin'), async (req, res, next) => {
   const data = req.body;
   if ("name" in data) {

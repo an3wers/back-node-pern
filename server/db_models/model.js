@@ -1,10 +1,6 @@
 import sequelize from "../db.js";
 import { DataTypes } from "sequelize";
 
-/*
-  Модели
-*/
-
 export const User = sequelize.define("user", {
   id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
   email: { type: DataTypes.STRING, unique: true },
@@ -53,9 +49,6 @@ export const TypeBrand = sequelize.define("type_brand", {
   id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
 });
 
-/*
-  Связи
-*/
 
 User.hasOne(Basket);
 Basket.belongsTo(User); // Создает в таблице Basket FK userId

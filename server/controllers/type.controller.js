@@ -9,6 +9,8 @@ class TypeController {
     const types = await Type.findAll();
     return types;
   }
+  async updateOne(data) {}
+  async removeOne(id) {}
 }
 
 export default new TypeController();

@@ -4,7 +4,7 @@ import ApiError from "../error/apiError.js";
 
 const router = Router();
 
-router.get("/", async (req, res) => {
+router.get("/", async (req, res, next) => {
   try {
     const { brandId, typeId, limit, page } = req.query;
     const result = await productController.getAll({
@@ -38,7 +38,8 @@ router.post("/", async (req, res, next) => {
     return;
   }
 });
-router.get("/:id", async (req, res) => {
+
+router.get("/:id", async (req, res, next) => {
   try {
     const id = req.params.id;
     const result = await productController.getOne(id);
